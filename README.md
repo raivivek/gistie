@@ -16,3 +16,6 @@ Requires `requests` module and `xclip` for copying to system clipboard.
 
 I guess this can be easily done through bash scripting and `curl` but I didn't
 know how to do that.
+
+Also, this has already been done extensively and probably nicely somewhere that
+I may not be aware of. I do not claim originality of thoughts.
