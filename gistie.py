@@ -4,6 +4,10 @@
 Gistie - A tiny script to generate quick pasties from terminal stdout
          and stdin output.
          Requires xclip, requests module.
+
+  TODO : The current behavior is tested only for very simple outputs
+         and may not work well. I think it would be suitable to work
+         with stdin/stdout directly.
 """
 
 __author__ = "Vivek Rai"
@@ -32,8 +36,7 @@ def set_clipboard(text):
 
 
 def catch_input():
-    """ Read redirected input from the command line.
-        TODO : Not properly tested. May not work well. Possibl
+    """ Read redirected input from the command line. See related warning.
     """
     inp = input()
     make_request(inp)
@@ -44,6 +47,8 @@ def catch_input():
 def make_request(inp):
     """ Make a POST request for creation of gist given by the payload
     parameters.
+    TODO: The file name generation and description could be made more
+          meaningful.
     """
     payload = {
         "description": inp[:20],
