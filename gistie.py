@@ -17,9 +17,11 @@ __date__ = "18th July, 2014"
 import requests
 import json
 import getpass
-from sys import stdin, stdout
+import sys
 from subprocess import Popen, PIPE
 
+
+ORIGINAL_STDIN = sys.stdin
 
 def set_clipboard(text):
     """Automatically copies the obtained gist URL to system clipboard.
@@ -38,9 +40,9 @@ def set_clipboard(text):
 def catch_input():
     """ Read redirected input from the command line. See related warning.
     """
-    inp = input()
-    make_request(inp)
-
+    inp = ""
+    with open("/dev/tty", "r") as tty_stream:
+        inp = tty_stream.readlines()
     return
 
 

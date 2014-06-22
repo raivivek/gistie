@@ -20,3 +20,12 @@ know how to do that.
 Also, this has already been done extensively and probably nicely somewhere that
 I may not be aware of. I do not claim originality of code idea or implementation
 but hey the name is _my_ invention ;).
+
+### Problems
+
+After having a little bit discussion about the way I originally the script to
+work, it seems that code will become only more nastier and hard-coded than the
+ease it would be. I am however still looking into the concept and working out
+any possible solutions that I could think of. Let's hope for the best. 
+
+_Clue_ : `getpass` module.
