@@ -36,18 +36,16 @@ def set_clipboard(text):
 
 
 def catch_input():
-    """ Read redirected input from the command line. See related warning.
+    """ Read redirected input from the command line. See related note.
     """
-    inp = ""
-    for line in sys.stdin:
-        inp += line
-    make_request(inp)
+    inp = "".join(sys.stdin.readlines())
+    make_request("".join([inp.rstrip(), BANNER]))
     return
 
 
 def make_request(inp):
     """ Make a POST request for creation of gist given by the payload
-    parameters.
+    parameters (GitHub v3 API).
     TODO: The file name generation and description could be made more
           meaningful.
     """
@@ -55,7 +53,7 @@ def make_request(inp):
         "description": inp[:20],
         "public": False,
         "files": {
-            "{}_gistie.txt".format(inp[:5]): {
+            "{}.txt".format(inp[:8]): {
                 "content": inp
             }
         }
@@ -67,18 +65,20 @@ def make_request(inp):
 
     if post_request.status_code >= 400:
         err = j.get('message', 'Undefined Error - No message from server.')
-        print("Error : {}".format(err))
+        print("Error: {}".format(err))
         exit()
 
     if post_request.ok:
-        print("URL : {}".format(j['html_url']))
+        print("URL: {}".format(j['html_url']))
         set_clipboard(j['html_url'])
         print("Copied to keyboard!")
     return
 
 
 def authorization():
-    """ Handling authorization through github v3 API
+    """ Handling user, password input using getpass. This is the only
+    workaround that I have found to accept non blocking input from
+    terminal.
     """
     user, passwd = ("", "")
     if not user:
