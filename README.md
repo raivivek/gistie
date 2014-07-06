@@ -12,8 +12,12 @@ thoughts as of now.
 
 Requires `requests` module and `xclip` for copying to system clipboard.
 
-## Run
-`command <options> ... | python gistie.py`
+## Installation
+
+    curl -L https://raw.githubusercontent.com/vivekiitkgp/gistie/master/gistie.py -o /usr/local/bin/gistie
+    chmod +x /usr/local/bin/gistie
+
+`command <options> ... | gistie`
 
 In other words, pipe the output to the script.
 
@@ -38,5 +42,3 @@ Update
 I have finally decided to use getpass.getpass() for username as well, since it
 was neater than implementing the getpass method in the script itself. It appears
 to work now, however it's still not tested exhaustively.
-
-_Clue_ : `getpass` module.
