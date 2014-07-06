@@ -21,8 +21,6 @@ import sys
 from subprocess import Popen, PIPE
 
 
-ORIGINAL_STDIN = sys.stdin
-
 def set_clipboard(text):
     """Automatically copies the obtained gist URL to system clipboard.
     Reference taken from a very simple Python script - Pyperclip.
@@ -41,8 +39,9 @@ def catch_input():
     """ Read redirected input from the command line. See related warning.
     """
     inp = ""
-    with open("/dev/tty", "r") as tty_stream:
-        inp = tty_stream.readlines()
+    for line in sys.stdin:
+        inp += line
+    make_request(inp)
     return
 
 
@@ -83,7 +82,7 @@ def authorization():
     """
     user, passwd = ("", "")
     if not user:
-        user = input("Username: ")
+        user = getpass.getpass("Username: ")
     if not passwd:
         passwd = getpass.getpass("Password: ")
 
