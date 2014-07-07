@@ -4,10 +4,6 @@
 Gistie - A tiny script to generate quick pasties from terminal stdout
          and stdin output.
          Requires xclip, requests module.
-
-  NOTE : The current behavior is tested only for very simple outputs
-         and may not work well. I think it would be suitable to work
-         with stdin/stdout directly.
 """
 
 __author__ = "Vivek Rai"
@@ -38,7 +34,7 @@ def set_clipboard(text):
 
 
 def catch_input():
-    """ Read redirected input from the command line. See related note.
+    """ Read redirected input from the command line.
     """
     inp = "".join(sys.stdin.readlines())
     make_request("".join([inp.rstrip(), BANNER]))
