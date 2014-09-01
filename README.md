@@ -1,7 +1,7 @@
 gistie
 ======
 
-A tiny gist creation script (**experimental**) which takes an input and creates
+A tiny gist creation script which takes an input and creates
 a gist on Github-gists and copies the link to clipboard for instant
 distribution.
 
@@ -30,10 +30,8 @@ In other words, pipe the output to the script.
 ### Regrets
 
 I guess this can be easily done through bash scripting and `curl` but I didn't
-know how to do that.
-
-Also, this has already been done extensively and probably nicely somewhere that
-I may not be aware of.
+know how to do that. Also, this has already been done extensively and probably
+nicely somewhere that I may not be aware of.
 
 ````
 .. ARCHIVE
