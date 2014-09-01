@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
-"""
+__description__ = """
 Gistie - A tiny script to generate quick pasties from terminal stdout
          and stdin output.
-         Requires xclip, requests module.
+         Requires curl, xclip, and requests module.
 """
 
 __author__ = "Vivek Rai"
@@ -14,6 +14,7 @@ import requests
 import json
 import getpass
 import sys
+import argparse
 from subprocess import Popen, PIPE
 
 
@@ -36,27 +37,36 @@ def set_clipboard(text):
 def catch_input():
     """ Read redirected input from the command line.
     """
+    parser = argparse.ArgumentParser(description=__description__)
+
+    parser.add_argument('-u', action='store', dest='user',
+                        help='Set username')
+    parser.add_argument('-p', action='store', dest='password',
+                        help='Set password')
+
+    credentials = parser.parse_args()
+
     inp = "".join(sys.stdin.readlines())
-    make_request("".join([inp.rstrip(), BANNER]))
+    make_request("".join([inp.rstrip(), BANNER]), credentials)
     return
 
 
-def make_request(inp):
+def make_request(inp, credentials):
     """ Make a POST request for creation of gist given by the payload
     parameters (GitHub v3 API).
     TODO: The file name generation and description could be made more
           meaningful.
     """
     payload = {
-        "description": inp[:20],
+        "description": inp[:20].strip(),
         "public": False,
         "files": {
-            "{}.txt".format(inp[:8]): {
+            "{}.txt".format(inp[:8].strip()): {
                 "content": inp
             }
         }
     }
-    user, passwd = authorization()
+    user, passwd = authorization(credentials)
     post_request = requests.post("https://api.github.com/gists",
                                  auth=(user, passwd), data=json.dumps(payload))
     j = (json.loads(post_request.text))
@@ -73,12 +83,13 @@ def make_request(inp):
     return
 
 
-def authorization():
+def authorization(credentials):
     """ Handling user, password input using getpass. This is the only
     workaround that I have found to accept non blocking input from
     terminal.
     """
-    user, passwd = ("", "")
+    user, passwd = (credentials.user, credentials.password)
+
     if not user:
         user = getpass.getpass("Username: ")
     if not passwd:
