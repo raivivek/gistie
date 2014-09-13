@@ -35,13 +35,15 @@ def set_clipboard(text):
 
 
 def catch_input():
-    """ Read redirected input from the command line.
+    """ Set parser arguments, read redirected input from the command line.
     """
     parser = argparse.ArgumentParser(description=__description__)
 
-    parser.add_argument('-u', action='store', dest='user',
+    parser.add_argument('-u', action='store',
+                        dest='user',
                         help='Set username')
-    parser.add_argument('-p', action='store', dest='password',
+    parser.add_argument('-p', action='store',
+                        dest='password',
                         help='Set password')
 
     credentials = parser.parse_args()
@@ -68,7 +70,8 @@ def make_request(inp, credentials):
     }
     user, passwd = authorization(credentials)
     post_request = requests.post("https://api.github.com/gists",
-                                 auth=(user, passwd), data=json.dumps(payload))
+                                 auth=(user, passwd),
+                                 data=json.dumps(payload))
     j = (json.loads(post_request.text))
 
     if post_request.status_code >= 400:
@@ -84,10 +87,6 @@ def make_request(inp, credentials):
 
 
 def authorization(credentials):
-    """ Handling user, password input using getpass. This is the only
-    workaround that I have found to accept non blocking input from
-    terminal.
-    """
     user, passwd = (credentials.user, credentials.password)
 
     if not user:
