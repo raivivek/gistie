@@ -17,6 +17,8 @@ Requires `curl`, `requests` module, and `xclip`.
     curl -L https://raw.githubusercontent.com/vivekiitkgp/gistie/master/gistie.py -o /usr/local/bin/gistie
     chmod +x /usr/local/bin/gistie
 
+You may need to provide appropriate permissions (`sudo`) for this to work.
+
 ## Usage
 
 `command <options> ... | gistie`
