@@ -31,6 +31,7 @@ In other words, pipe the output to the script.
 
 Update
 ------
-I have finally decided to use `getpass.getpass()` for username as well since
-this was neater than implementing the getpass method in the script itself. It
-works for the time being but, we must further test it rigorously.
+I have finally decided to use `getpass.getpass()` for username as well as
+password since this was neater than implementing the getpass method in the
+script itself. It works for the time being but, we must further test it
+rigorously.
