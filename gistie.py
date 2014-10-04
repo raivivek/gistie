@@ -61,6 +61,11 @@ def create_gist():
 
     read_data = sys.stdin.readlines()
     data_to_string = ''.join(read_data)
+
+    if not read_data:
+        print("No gist created due to bad input.")
+        exit()
+
     payload = {
         'description': read_data[0],
         'public': False,
@@ -96,6 +101,9 @@ def create_gist():
         print("Error: {}".format(response_message))
 
 def prompt(login, bad_try=False):
+    """ Prompt only for those fields which are not already known, and if
+    previous attempt is failed, prompt for both fields.
+    """
     if bad_try:
         login.user = getpass.getpass('Username (not shown): ')
         login.password = getpass.getpass('Password (not shown): ')
