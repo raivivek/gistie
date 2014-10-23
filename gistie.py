@@ -73,7 +73,7 @@ def create_gist():
         return
 
     payload = {
-        'description': read_data[0],
+        'description': read_data[0][:20] + ' ...',
         'public': False,
         'files': {
             "": {
